@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "factory:block/steam_boiler"
+    },
+    "facing=south": {
+      "model": "factory:block/steam_boiler",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "factory:block/steam_boiler",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "factory:block/steam_boiler",
+      "y": 90
+    }
+  }
+}

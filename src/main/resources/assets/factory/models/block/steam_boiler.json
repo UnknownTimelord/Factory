@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "factory:block/steam_boiler_tank",
+    "side": "factory:block/reinforced_copper",
+    "top": "factory:block/reinforced_copper"
+  }
+}

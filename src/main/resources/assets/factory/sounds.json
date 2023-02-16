@@ -1,0 +1,14 @@
+{
+  "open_bigger_chest": {
+    "subtitle": "sounds.factory.open_bigger_chest",
+    "sounds": [
+      "factory:open_bigger_chest"
+    ]
+  },
+  "close_bigger_chest": {
+    "subtitle": "sounds.factory.close_bigger_chest",
+    "sounds": [
+      "factory:close_bigger_chest"
+    ]
+  }
+}
