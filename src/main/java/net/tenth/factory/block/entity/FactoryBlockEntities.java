@@ -7,6 +7,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tenth.factory.Factory;
 import net.tenth.factory.block.FactoryBlocks;
+import net.tenth.factory.block.custom.SteamBoiler;
 
 public class FactoryBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Factory.MOD_ID);
@@ -22,4 +23,8 @@ public class FactoryBlockEntities {
     public static RegistryObject<BlockEntityType<SteamBoilerEntity>> STEAM_BOILER_ENTITY = BLOCK_ENTITIES.register("steam_boiler",
             ()-> BlockEntityType.Builder.of(SteamBoilerEntity::new,
                     FactoryBlocks.STEAM_BOILER.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<SteamBenderEntity>> STEAM_BENDER_ENTITY = BLOCK_ENTITIES.register("steam_bender",
+            ()-> BlockEntityType.Builder.of(SteamBenderEntity::new,
+                    FactoryBlocks.STEAM_BENDER.get()).build(null));
 }

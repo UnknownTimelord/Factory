@@ -6,9 +6,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tenth.factory.Factory;
-import net.tenth.factory.fluid.FactoryFluids;
-import net.tenth.factory.tab.FactoryTabs;
-
 public class FactoryItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Factory.MOD_ID);
@@ -20,44 +17,42 @@ public class FactoryItems {
     // Materials
 
     public static RegistryObject<Item> ALUMINUM = ITEMS.register("aluminum",
-            ()-> new Item(new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
+            ()-> new Item(new Item.Properties()));
 
-    // Liquids
+    // Plates
 
-    public static RegistryObject<BucketItem> STEAM_BUCKET = ITEMS.register("steam_bucket",
-            ()-> new BucketItem(FactoryFluids.SOURCE_STEAM, new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)
-                    .stacksTo(1)
-                    .craftRemainder(Items.BUCKET)));
+    public static RegistryObject<Item> ALUMINUM_PLATE = ITEMS.register("aluminum_plate",
+            ()-> new Item(new Item.Properties()));
+
+    public static RegistryObject<Item> COPPER_PLATE = ITEMS.register("copper_plate",
+            ()-> new Item(new Item.Properties()));
+
+    public static RegistryObject<Item> IRON_PLATE = ITEMS.register("iron_plate",
+            ()-> new Item(new Item.Properties()));
+
+    public static RegistryObject<Item> GOLD_PLATE = ITEMS.register("gold_plate",
+            ()-> new Item(new Item.Properties()));
+
+    public static RegistryObject<Item> DIAMOND_PLATE = ITEMS.register("diamond_plate",
+            ()-> new Item(new Item.Properties()));
+
+    public static RegistryObject<Item> NETHERITE_PLATE = ITEMS.register("netherite_plate",
+            ()-> new Item(new Item.Properties()));
 
     // Pickaxes
 
-    public static RegistryObject<Item> PICKAXE_HEAD = ITEMS.register("pickaxe_head",
-            ()-> new Item(new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
-
-    public static RegistryObject<Item> TOOL_ROD = ITEMS.register("tool_rod",
-            ()-> new Item(new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
-
     public static RegistryObject<Item> COPPER_PICKAXE = ITEMS.register("copper_pickaxe",
-            ()-> new PickaxeItem(Tiers.IRON, 0, 0, new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
+            ()-> new PickaxeItem(FactoryToolTiers.COPPER, 0, 0, new Item.Properties()));
 
     // Circuits
 
     public static RegistryObject<Item> UNFIRED_PCB = ITEMS.register("unfired_pcb",
-            ()-> new Item(new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
+            ()-> new Item(new Item.Properties()));
 
     public static RegistryObject<Item> CIRCUIT_BOARD = ITEMS.register("circuit_board",
-            ()-> new Item(new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
+            ()-> new Item(new Item.Properties()));
 
     public static RegistryObject<Item> CIRCUIT = ITEMS.register("circuit",
-            ()-> new Item(new Item.Properties()
-                    .tab(FactoryTabs.FACTORY_TAB)));
-
+            ()-> new Item(new Item.Properties()));
 
 }

@@ -28,27 +28,34 @@ public class FactoryBlocks {
     }
 
     public static <T extends Block> RegistryObject<Item> registerBlockItem(String name,RegistryObject<T> block) {
-        return FactoryItems.ITEMS.register(name, ()-> new BlockItem(block.get(), new Item.Properties().tab(FactoryTabs.FACTORY_TAB)));
+        return FactoryItems.ITEMS.register(name, ()-> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }
 
-    public static final RegistryObject<LiquidBlock> STEAM_BLOCK = BLOCKS.register("steam_block",
-            ()-> new LiquidBlock(FactoryFluids.SOURCE_STEAM, BlockBehaviour.Properties.copy(Blocks.WATER)));
+    // Misc. Functional Blocks
 
     public static final RegistryObject<Block> SLIGHTLY_BIGGER_CHEST = registerBlock("slightly_bigger_chest",
             ()-> new SlightlyBiggerChest(BlockBehaviour.Properties.of(Material.WOOD)
                     .sound(SoundType.WOOD)
                     .noOcclusion()
-                    .strength(4f)));
+                    .strength(1f)));
 
     // Machines
 
     public static final RegistryObject<Block> STEAM_BOILER = registerBlock("steam_boiler",
             ()-> new SteamBoiler(BlockBehaviour.Properties.of(Material.METAL)
+                    .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)
                     .noOcclusion()
-                    .strength(4f)));
+                    .strength(2f)));
+
+    public static final RegistryObject<Block> STEAM_BENDER = registerBlock("steam_bender",
+            ()-> new SteamBender(BlockBehaviour.Properties.of(Material.METAL)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)
+                    .noOcclusion()
+                    .strength(2f)));
 }

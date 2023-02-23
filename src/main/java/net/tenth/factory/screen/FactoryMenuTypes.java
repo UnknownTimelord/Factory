@@ -27,4 +27,7 @@ public class FactoryMenuTypes {
             registerMenuType(SlightlyBiggerChestMenu::new, "slightly_bigger_chest_menu");
     public static final RegistryObject<MenuType<SteamBoilerMenu>> STEAM_BOILER_MENU =
             registerMenuType(SteamBoilerMenu::new, "steam_boiler_menu");
+
+    public static final RegistryObject<MenuType<SteamBenderMenu>> STEAM_BENDER_MENU =
+            registerMenuType(SteamBenderMenu::new, "steam_bender_menu");
 }

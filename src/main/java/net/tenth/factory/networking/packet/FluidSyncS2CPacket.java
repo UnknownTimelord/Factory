@@ -9,7 +9,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
+import net.tenth.factory.block.entity.SteamBenderEntity;
 import net.tenth.factory.block.entity.SteamBoilerEntity;
+import net.tenth.factory.screen.SteamBenderMenu;
 import net.tenth.factory.screen.SteamBoilerMenu;
 
 import java.util.Objects;
@@ -41,6 +43,13 @@ public class FluidSyncS2CPacket {
                 blockEntity.setFluid(this.fluidStack);
 
                 if(Minecraft.getInstance().player.containerMenu instanceof SteamBoilerMenu menu &&
+                        menu.getBlockEntity().getBlockPos().equals(pos)) {
+                    menu.setFluid(this.fluidStack);
+                }
+            } else if(Minecraft.getInstance().level.getBlockEntity(pos) instanceof SteamBenderEntity blockEntity) {
+                blockEntity.setFluid(this.fluidStack);
+
+                if(Minecraft.getInstance().player.containerMenu instanceof SteamBenderMenu menu &&
                         menu.getBlockEntity().getBlockPos().equals(pos)) {
                     menu.setFluid(this.fluidStack);
                 }

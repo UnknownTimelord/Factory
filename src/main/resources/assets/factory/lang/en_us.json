@@ -1,26 +1,27 @@
 {
   "itemGroup.factory_tab": "Factory",
   "factory.press_shift_for_info": "Press SHIFT for more information",
-  "item.factory.pickaxe_head": "Example Pickaxe Head",
-  "item.factory.tool_rod": "Example Tool Rod",
-  "item.factory.pickaxe_template": "Example Pickaxe",
-
-  "item.factory.copper_pickaxe": "Copper Pickaxe",
 
   "item.factory.aluminum": "Aluminum",
-
+  "item.factory.aluminum_plate": "Aluminum Plate",
+  "item.factory.copper_plate": "Copper Plate",
+  "item.factory.iron_plate": "Iron Plate",
+  "item.factory.gold_plate": "Gold Plate",
+  "item.factory.diamond_plate": "Diamond Plate",
+  "item.factory.netherite_plate": "Netherite Plate",
+  "item.factory.copper_pickaxe": "Copper Pickaxe",
   "item.factory.unfired_pcb": "Unfired PCB",
   "item.factory.circuit": "Circuit",
   "item.factory.circuit_board": "Circuit Board",
 
-  "item.factory.steam_bucket": "Steam Bucket",
+  "fluid_type.factory.steam": "Steam",
+
   "block.factory.steam_boiler": "Steam Boiler",
-
-  "factory.pickaxe_template": "Pickaxe Template",
-
   "block.factory.slightly_bigger_chest": "Slightly Bigger Chest",
   "sounds.factory.open_bigger_chest": "Opens Slightly Bigger Chest",
   "sounds.factory.close_bigger_chest": "Closes Slightly Bigger Chest",
+  "block.factory.steam_bender": "Steam Bender",
+  "factory.circuit_button": "Circuit",
 
   "factory.tooltip.liquid.amount.with.capacity": "%s / %s mB",
   "factory.tooltip.liquid.amount": "%s mB"

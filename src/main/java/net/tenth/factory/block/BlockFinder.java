@@ -8,20 +8,20 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class BlockFinder {
-    public static BlockEntity getNorth(BlockEntity pEntity) {
-        return pEntity.getLevel().getBlockEntity(pEntity.getBlockPos().north());
+    public static Block getNorth(BlockEntity pEntity) {
+        return pEntity.getLevel().getBlockState(pEntity.getBlockPos().north()).getBlock();
     }
 
-    public static BlockEntity getEast(BlockEntity pEntity) {
-        return pEntity.getLevel().getBlockEntity(pEntity.getBlockPos().east());
+    public static Block getEast(BlockEntity pEntity) {
+        return pEntity.getLevel().getBlockState(pEntity.getBlockPos().east()).getBlock();
     }
 
-    public static BlockEntity getSouth(BlockEntity pEntity) {
-        return pEntity.getLevel().getBlockEntity(pEntity.getBlockPos().south());
+    public static Block getSouth(BlockEntity pEntity) {
+        return pEntity.getLevel().getBlockState(pEntity.getBlockPos().south()).getBlock();
     }
 
-    public static BlockEntity getWest(BlockEntity pEntity) {
-        return pEntity.getLevel().getBlockEntity(pEntity.getBlockPos().west());
+    public static Block getWest(BlockEntity pEntity) {
+        return pEntity.getLevel().getBlockState(pEntity.getBlockPos().west()).getBlock();
     }
 
     public static Direction getFacing(BlockEntity pEntity) {

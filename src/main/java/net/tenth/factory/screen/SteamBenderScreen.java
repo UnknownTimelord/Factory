@@ -7,41 +7,53 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.tenth.factory.Factory;
+import net.tenth.factory.item.FactoryItems;
+import net.tenth.factory.networking.FactoryMessages;
+import net.tenth.factory.networking.packet.CircuitSyncC2SPacket;
 import net.tenth.factory.screen.renderer.FluidTankRenderer;
 import net.tenth.factory.util.MouseUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class SteamBoilerScreen extends AbstractContainerScreen<SteamBoilerMenu> {
+public class SteamBenderScreen extends AbstractContainerScreen<SteamBenderMenu> {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(Factory.MOD_ID, "textures/gui/steam_boiler_gui.png");
+            new ResourceLocation(Factory.MOD_ID, "textures/gui/bending_gui.png");
     private FluidTankRenderer renderer;
-    public SteamBoilerScreen(SteamBoilerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+    private Level level;
+    public SteamBenderScreen(SteamBenderMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
+        this.level = pPlayerInventory.player.getLevel();
     }
 
     @Override
     protected void init() {
         super.init();
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
         assignFluidRenderer();
     }
 
     private void assignFluidRenderer() {
-        renderer = new FluidTankRenderer(64000, true, 52, 52);
+        renderer = new FluidTankRenderer(2000, true, 16, 16);
     }
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-
         renderFluidAreaTooltips(pPoseStack, pMouseX, pMouseY, x, y);
     }
 
     private void renderFluidAreaTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y) {
-        if(IsMouseAboveArea(pMouseX, pMouseY, x, y, 62, 13)) {
+        if(IsMouseAboveArea(pMouseX, pMouseY, x, y, 150, 35)) {
             renderTooltip(pPoseStack, renderer.getTooltip(menu.getFluidStack(), TooltipFlag.Default.NORMAL),
                     Optional.empty(), pMouseX - x, pMouseY - y);
         }
@@ -61,13 +73,32 @@ public class SteamBoilerScreen extends AbstractContainerScreen<SteamBoilerMenu> 
 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
         renderProgressArrow(pPoseStack, x, y);
-        renderer.render(pPoseStack, x + 62, y + 13, menu.getFluidStack());
+        renderer.render(pPoseStack, x + 150, y + 35, menu.getFluidStack());
     }
 
     private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
         if(menu.isCrafting()) {
-            blit(pPoseStack, x + 25, y + 32, 176, 0,  13, menu.getScaledProgress());
+            blit(pPoseStack, x + 87, y + 30, 176, 0,  31, menu.getScaledProgress());
         }
+    }
+
+    @Override
+    protected void slotClicked(@NotNull Slot pSlot, int pSlotId, int pMouseButton, ClickType pType) {
+        System.out.println("menu.getCircuit()" + menu.getCircuit());
+        if(pSlotId == 43 && pMouseButton == 0) { // Left Click
+            // menu.setCircuit(menu.getCircuit() + 1); NOT WORKING, TRYING PACKETS INSTEAD!
+            FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() + 1, menu.blockEntity.getBlockPos())); // Not working either
+        }
+        if(pSlotId == 43 && pMouseButton == 1) { // Right Click
+            // menu.setCircuit(menu.getCircuit() - 1); NOT WORKING, TRYING PACKETS INSTEAD!
+            FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() - 1, menu.blockEntity.getBlockPos())); // Not working either
+        }
+        super.slotClicked(pSlot, pSlotId, pMouseButton, pType);
+    }
+
+    @Override
+    public @Nullable Slot getSlotUnderMouse() {
+        return super.getSlotUnderMouse();
     }
 
     @Override

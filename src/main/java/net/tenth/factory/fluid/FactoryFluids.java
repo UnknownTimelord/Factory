@@ -18,15 +18,17 @@ public class FactoryFluids {
         FLUIDS.register(eventBus);
     }
 
+
     public static final RegistryObject<FlowingFluid> SOURCE_STEAM = FLUIDS.register("steam",
             ()-> new ForgeFlowingFluid.Source(FactoryFluids.STEAM_PROPERTIES));
+
     public static final RegistryObject<FlowingFluid> FLOWING_STEAM = FLUIDS.register("flowing_steam",
             ()-> new ForgeFlowingFluid.Flowing(FactoryFluids.STEAM_PROPERTIES));
 
     public static final ForgeFlowingFluid.Properties STEAM_PROPERTIES = new ForgeFlowingFluid.Properties(
             FactoryFluidTypes.STEAM_FLUID_TYPE, SOURCE_STEAM, FLOWING_STEAM)
             .slopeFindDistance(1).levelDecreasePerBlock(1)
-            .block(FactoryBlocks.STEAM_BLOCK)
-            .bucket(FactoryItems.STEAM_BUCKET);
+            .block(null)
+            .bucket(null);
 
 }

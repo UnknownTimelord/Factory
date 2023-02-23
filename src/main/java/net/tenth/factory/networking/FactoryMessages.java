@@ -7,6 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.tenth.factory.Factory;
+import net.tenth.factory.networking.packet.CircuitSyncC2SPacket;
 import net.tenth.factory.networking.packet.FluidSyncS2CPacket;
 
 public class FactoryMessages {
@@ -31,6 +32,12 @@ public class FactoryMessages {
                 .decoder(FluidSyncS2CPacket::new)
                 .encoder(FluidSyncS2CPacket::toBytes)
                 .consumerMainThread(FluidSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(CircuitSyncC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CircuitSyncC2SPacket::new)
+                .encoder(CircuitSyncC2SPacket::toBytes)
+                .consumerMainThread(CircuitSyncC2SPacket::handle)
                 .add();
     }
 
