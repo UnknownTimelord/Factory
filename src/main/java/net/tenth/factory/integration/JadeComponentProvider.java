@@ -1,6 +1,7 @@
 package net.tenth.factory.integration;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.tenth.factory.Factory;
@@ -18,8 +19,8 @@ public class JadeComponentProvider implements IBlockComponentProvider {
 
         BlockEntity blockEntity = blockAccessor.getBlockEntity();
         if(blockEntity instanceof SteamBenderEntity) {
-            SteamBenderEntity steambender = (SteamBenderEntity) Minecraft.getInstance().level.getBlockEntity(blockEntity.getBlockPos());
-            iTooltip.add(steambender.getProgressElement());
+            SteamBenderEntity steamBender = (SteamBenderEntity) Minecraft.getInstance().level.getBlockEntity(blockEntity.getBlockPos());
+            iTooltip.add(Component.translatable("factory.progress: " + steamBender.getProgress() / 78 * 100 + "% / 100%"));
         }
     }
 

@@ -263,7 +263,7 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
         return pContainer.getItem(0).getMaxStackSize() > pContainer.getItem(0).getCount();
     }
 
-    public ProgressElement getProgressElement() {
-        return this.progressElement;
+    public int getProgress() {
+        return this.progress;
     }
 }
