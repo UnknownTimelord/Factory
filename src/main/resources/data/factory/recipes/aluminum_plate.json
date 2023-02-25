@@ -1,0 +1,11 @@
+{
+  "type": "factory:bending",
+  "ingredients": [
+    {
+      "item": "factory:aluminum_ingot"
+    }
+  ],
+  "output": {
+    "item": "factory:aluminum_plate"
+  }
+}

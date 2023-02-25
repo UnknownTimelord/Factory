@@ -84,14 +84,16 @@ public class SteamBenderScreen extends AbstractContainerScreen<SteamBenderMenu> 
 
     @Override
     protected void slotClicked(@NotNull Slot pSlot, int pSlotId, int pMouseButton, ClickType pType) {
-        System.out.println("menu.getCircuit()" + menu.getCircuit());
+        System.out.println("Mouse Button: " + pMouseButton);
         if(pSlotId == 43 && pMouseButton == 0) { // Left Click
-            // menu.setCircuit(menu.getCircuit() + 1); NOT WORKING, TRYING PACKETS INSTEAD!
-            FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() + 1, menu.blockEntity.getBlockPos())); // Not working either
+            FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() + 1, menu.blockEntity.getBlockPos()));
         }
         if(pSlotId == 43 && pMouseButton == 1) { // Right Click
-            // menu.setCircuit(menu.getCircuit() - 1); NOT WORKING, TRYING PACKETS INSTEAD!
-            FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() - 1, menu.blockEntity.getBlockPos())); // Not working either
+            if(menu.getCircuit() == 0) {
+                FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() + 24, menu.blockEntity.getBlockPos()));
+            } else {
+                FactoryMessages.sendToServer(new CircuitSyncC2SPacket(menu.getCircuit() - 1, menu.blockEntity.getBlockPos()));
+            }
         }
         super.slotClicked(pSlot, pSlotId, pMouseButton, pType);
     }

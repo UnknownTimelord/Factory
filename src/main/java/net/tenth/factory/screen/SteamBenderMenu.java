@@ -50,7 +50,6 @@ public class SteamBenderMenu extends AbstractContainerMenu {
 
         });
         addDataSlots(data);
-        System.out.println("menu blockEntity: " + blockEntity);
     }
 
     public int getCircuit() {

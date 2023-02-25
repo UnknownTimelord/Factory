@@ -154,19 +154,23 @@ public class SteamBoilerEntity extends BlockEntity implements MenuProvider {
         if(hasRecipe(pEntity)) {
             switch(waterNearby(pEntity).second) {
                 case "north" -> {
-                    level.setBlock(pEntity.getBlockPos().north(), Blocks.AIR.defaultBlockState(), 0);
+                    level.setBlock(pEntity.getBlockPos().north(), Blocks.AIR.defaultBlockState(), 2);
+                    level.updateNeighborsAt(pEntity.getBlockPos().north(), Blocks.AIR);
                     pEntity.STEAM_TANK.fill(new FluidStack(FactoryFluids.SOURCE_STEAM.get(), 2000), IFluidHandler.FluidAction.EXECUTE);
                 }
                 case "east" -> {
-                    level.setBlock(pEntity.getBlockPos().east(), Blocks.AIR.defaultBlockState(), 0);
+                    level.setBlock(pEntity.getBlockPos().east(), Blocks.AIR.defaultBlockState(), 2);
+                    level.updateNeighborsAt(pEntity.getBlockPos().east(), Blocks.AIR);
                     pEntity.STEAM_TANK.fill(new FluidStack(FactoryFluids.SOURCE_STEAM.get(), 2000), IFluidHandler.FluidAction.EXECUTE);
                 }
                 case "south" -> {
-                    level.setBlock(pEntity.getBlockPos().south(), Blocks.AIR.defaultBlockState(), 0);
+                    level.setBlock(pEntity.getBlockPos().south(), Blocks.AIR.defaultBlockState(), 2);
+                    level.updateNeighborsAt(pEntity.getBlockPos().south(), Blocks.AIR);
                     pEntity.STEAM_TANK.fill(new FluidStack(FactoryFluids.SOURCE_STEAM.get(), 2000), IFluidHandler.FluidAction.EXECUTE);
                 }
                 case "west" -> {
-                    level.setBlock(pEntity.getBlockPos().west(), Blocks.AIR.defaultBlockState(), 0);
+                    level.setBlock(pEntity.getBlockPos().west(), Blocks.AIR.defaultBlockState(), 2);
+                    level.updateNeighborsAt(pEntity.getBlockPos().west(), Blocks.AIR);
                     pEntity.STEAM_TANK.fill(new FluidStack(FactoryFluids.SOURCE_STEAM.get(), 2000), IFluidHandler.FluidAction.EXECUTE);
                 }
             }

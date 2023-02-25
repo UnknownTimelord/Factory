@@ -1,0 +1,11 @@
+{
+  "type": "factory:bending",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
+  "output": {
+    "item": "factory:diamond_plate"
+  }
+}

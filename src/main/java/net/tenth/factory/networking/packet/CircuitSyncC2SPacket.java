@@ -31,10 +31,8 @@ public class CircuitSyncC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
-            Level level  = Minecraft.getInstance().level;
+            Level level  = context.getSender().getLevel();
             if(level.getBlockEntity(pos) instanceof SteamBenderEntity blockEntity) {
-                System.out.println("Packet circuitNumber: " + circuitNumber);
-                System.out.println("Packet BlockEntity: " + blockEntity);
                 blockEntity.setCircuit(blockEntity, circuitNumber);
             }
         });

@@ -14,4 +14,7 @@ public class FactoryRecipes {
     public static void register (IEventBus eventBus) {
         SERIALIZERS.register(eventBus);
     }
+
+    public static final RegistryObject<RecipeSerializer<BendingRecipe>> BENDING_RECIPE_SERIALIZER =
+            SERIALIZERS.register("bending", ()-> BendingRecipe.Serializer.INSTANCE);
 }

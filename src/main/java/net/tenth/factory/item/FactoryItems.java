@@ -16,7 +16,7 @@ public class FactoryItems {
 
     // Materials
 
-    public static RegistryObject<Item> ALUMINUM = ITEMS.register("aluminum",
+    public static RegistryObject<Item> ALUMINUM_INGOT = ITEMS.register("aluminum_ingot",
             ()-> new Item(new Item.Properties()));
 
     // Plates

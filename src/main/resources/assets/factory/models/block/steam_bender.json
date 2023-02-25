@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "factory:block/steam_bender",
+    "side": "factory:block/reinforced_copper",
+    "top": "factory:block/reinforced_copper"
+  }
+}

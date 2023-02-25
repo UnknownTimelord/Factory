@@ -1,17 +1,16 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "factory:bending",
   "ingredients": [
-    {
-      "item": "factory:plate"
-    },
     {
       "item": "minecraft:copper_ingot"
     }
   ],
-  "result": {
-    "item": "factory:plate",
-    "nbt": {
-      "factory:material": 1
-    }
+  "circuit_required": 1,
+  "steam": {
+    "FluidName": "factory:steam",
+    "Amount": 2000
+  },
+  "output": {
+    "item": "factory:copper_plate"
   }
 }

@@ -2,7 +2,7 @@
   "itemGroup.factory_tab": "Factory",
   "factory.press_shift_for_info": "Press SHIFT for more information",
 
-  "item.factory.aluminum": "Aluminum",
+  "item.factory.aluminum_ingot": "Aluminum Ingot",
   "item.factory.aluminum_plate": "Aluminum Plate",
   "item.factory.copper_plate": "Copper Plate",
   "item.factory.iron_plate": "Iron Plate",
@@ -13,6 +13,7 @@
   "item.factory.unfired_pcb": "Unfired PCB",
   "item.factory.circuit": "Circuit",
   "item.factory.circuit_board": "Circuit Board",
+  "config.jade.plugin_factory.jade_provider": "BLAH",
 
   "fluid_type.factory.steam": "Steam",
 
@@ -24,5 +25,7 @@
   "factory.circuit_button": "Circuit",
 
   "factory.tooltip.liquid.amount.with.capacity": "%s / %s mB",
-  "factory.tooltip.liquid.amount": "%s mB"
+  "factory.tooltip.liquid.amount": "%s mB",
+
+  "factory.bending_jei_category": "Bending"
 }

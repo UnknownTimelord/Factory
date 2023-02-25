@@ -18,7 +18,7 @@ public class FactoryTabs {
         public void fillItemList(NonNullList<ItemStack> pItems) {
             /* Items */
             // Materials
-            pItems.add(new ItemStack(FactoryItems.ALUMINUM.get()));
+            pItems.add(new ItemStack(FactoryItems.ALUMINUM_INGOT.get()));
             // Plates
             pItems.add(new ItemStack(FactoryItems.ALUMINUM_PLATE.get()));
             pItems.add(new ItemStack(FactoryItems.COPPER_PLATE.get()));
@@ -36,6 +36,7 @@ public class FactoryTabs {
             /* Blocks */
             pItems.add(new ItemStack(FactoryBlocks.SLIGHTLY_BIGGER_CHEST.get()));
             pItems.add(new ItemStack(FactoryBlocks.STEAM_BOILER.get()));
+            pItems.add(new ItemStack(FactoryBlocks.STEAM_BENDER.get()));
             super.fillItemList(pItems);
         }
     };

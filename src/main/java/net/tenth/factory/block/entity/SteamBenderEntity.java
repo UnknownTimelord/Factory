@@ -4,7 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,13 +24,20 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.tenth.factory.Factory;
 import net.tenth.factory.fluid.FactoryFluids;
 import net.tenth.factory.item.FactoryItems;
 import net.tenth.factory.networking.FactoryMessages;
 import net.tenth.factory.networking.packet.FluidSyncS2CPacket;
+import net.tenth.factory.recipe.BendingRecipe;
 import net.tenth.factory.screen.SteamBenderMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import snownee.jade.api.ui.BoxStyle;
+import snownee.jade.impl.ui.ProgressElement;
+import snownee.jade.impl.ui.ProgressStyle;
+
+import java.util.Optional;
 
 public class SteamBenderEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemHandler = new ItemStackHandler(8) {
@@ -37,9 +47,7 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return slot != 0;
-        }
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) { return slot != 0; }
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -70,8 +78,9 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
     private LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.empty();
     private int progress = 0;
     private int maxProgress = 78;
+    private ProgressElement progressElement = new ProgressElement(progress, Component.translatable("factory.progress"), new ProgressStyle(), new BoxStyle(), false);
     private int circuitNumber = 0;
-    protected final ContainerData data;
+    public final ContainerData data;
     public SteamBenderEntity(BlockPos pPos, BlockState pBlockState) {
         super(FactoryBlockEntities.STEAM_BENDER_ENTITY.get(), pPos, pBlockState);
         this.data = new ContainerData() {
@@ -94,13 +103,10 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
                 return 3;
             }
         };
-        System.out.println("ACTUAL BLOCK ENTITY: " + this);
     }
 
     public void setCircuit(SteamBenderEntity pEntity, int pCircuit) { // Used by CircuitSyncC2SPacket
-        System.out.println("BlockEntity from setCircuit in SteamBoilerEntity: " + pEntity);
-        System.out.println("The circuit this function is trying to set it to: " + pCircuit);
-        data.set
+        pEntity.circuitNumber = pCircuit;
     }
 
     @Override
@@ -116,7 +122,7 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) { // Make it so only the output slot can be extracted.
             return lazyItemHandler.cast();
         }
         if(cap == ForgeCapabilities.FLUID_HANDLER) {
@@ -157,17 +163,28 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
         circuitNumber = pTag.getInt("steam_bender.circuit");
     }
 
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0; i < itemHandler.getSlots(); i++) {
+            if(i == 7) break;
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        Containers.dropContents(this.level, this.worldPosition,  inventory);
+    }
+
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, SteamBenderEntity pEntity) {
         if(level.isClientSide()) {
             return;
         }
-        pEntity.itemHandler.setStackInSlot(7, new ItemStack(FactoryItems.CIRCUIT.get(), pEntity.circuitNumber));
-        if(pEntity.circuitNumber >= 25) {
-            pEntity.resetCircuit();
+        if(pEntity.circuitNumber >= 25 || pEntity.circuitNumber < 0) { // Circuit is 0-24, anything under or over this is invalid
+            pEntity.resetCircuit(); // Thus, we reset the circuit
         }
-        // System.out.println("Circuit Number " + pEntity.circuitNumber);
+        /* Creates an ItemStack of CIRCUIT, amount = this entity's circuitNumber */
+        pEntity.itemHandler.setStackInSlot(7, new ItemStack(FactoryItems.CIRCUIT.get(), pEntity.circuitNumber));
         if(hasRecipe(pEntity)) {
             pEntity.progress++;
+            pEntity.progressElement = new ProgressElement(pEntity.progress, Component.translatable("factory.progress"), new ProgressStyle(), new BoxStyle(), false);
             setChanged(level, blockPos, blockState);
             if(pEntity.progress == pEntity.maxProgress) {
                 craftItem(pEntity);
@@ -187,11 +204,66 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
     }
 
     private static void craftItem(SteamBenderEntity pEntity) {
+        Level level = pEntity.level;
+        SimpleContainer pContainer = new SimpleContainer(pEntity.itemHandler.getSlots());
+        for(int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
+            pContainer.setItem(i, pEntity.itemHandler.getStackInSlot(i));
+        }
+
+        Optional<BendingRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(BendingRecipe.Type.INSTANCE, pContainer, level);
+
+        int foundItem = 0;
+
+        if(recipe.isPresent()) {
+            for(int i = 1; i < pContainer.getContainerSize(); i++) {
+                if (!pContainer.getItem(i).isEmpty() && !pContainer.getItem(i).is(FactoryItems.CIRCUIT.get())) {
+                    if (recipe.get().getIngredients().get(0).test(pContainer.getItem(i))) {
+                        foundItem = i;
+                        break;
+                    }
+                }
+            }
+        }
+
         if(hasRecipe(pEntity)) {
+            pEntity.STEAM_TANK.drain(recipe.get().getSteam().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+            pEntity.itemHandler.extractItem(foundItem, 1, false);
+            pEntity.itemHandler.setStackInSlot(0, new ItemStack(recipe.get().getResultItem().getItem(),
+                    pEntity.itemHandler.getStackInSlot(0).getCount() + 1));
+            pEntity.resetProgress();
         }
     }
 
     private static boolean hasRecipe(SteamBenderEntity pEntity) {
-        return false;
+        Level level = pEntity.level;
+        assert level != null;
+        SimpleContainer pContainer = new SimpleContainer(pEntity.itemHandler.getSlots());
+        for(int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
+            pContainer.setItem(i, pEntity.itemHandler.getStackInSlot(i));
+        }
+
+        Optional<BendingRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(BendingRecipe.Type.INSTANCE, pContainer, level);
+
+        return recipe.isPresent() && outputSlotInsertableAmount(pContainer)
+                && outputSlotInsertableItem(pContainer, recipe.get().getResultItem())
+                && steamInTank(pEntity, recipe);
+    }
+
+    private static boolean steamInTank(SteamBenderEntity pEntity, Optional<BendingRecipe> recipe) {
+        return recipe.get().getSteam().equals(pEntity.STEAM_TANK.getFluid()) && recipe.get().getSteam().getAmount() == pEntity.STEAM_TANK.getFluidAmount();
+    }
+
+    public static boolean outputSlotInsertableItem(SimpleContainer pContainer, ItemStack pStack) {
+        return pContainer.getItem(0).getItem() == pStack.getItem() || pContainer.getItem(0).isEmpty();
+    }
+
+    public static boolean outputSlotInsertableAmount(SimpleContainer pContainer) {
+        return pContainer.getItem(0).getMaxStackSize() > pContainer.getItem(0).getCount();
+    }
+
+    public ProgressElement getProgressElement() {
+        return this.progressElement;
     }
 }
