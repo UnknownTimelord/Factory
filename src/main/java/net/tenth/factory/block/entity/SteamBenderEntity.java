@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -24,7 +23,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.tenth.factory.Factory;
 import net.tenth.factory.fluid.FactoryFluids;
 import net.tenth.factory.item.FactoryItems;
 import net.tenth.factory.networking.FactoryMessages;
@@ -33,9 +31,6 @@ import net.tenth.factory.recipe.BendingRecipe;
 import net.tenth.factory.screen.SteamBenderMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import snownee.jade.api.ui.BoxStyle;
-import snownee.jade.impl.ui.ProgressElement;
-import snownee.jade.impl.ui.ProgressStyle;
 
 import java.util.Optional;
 
@@ -78,7 +73,6 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
     private LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.empty();
     private int progress = 0;
     private int maxProgress = 78;
-    private ProgressElement progressElement = new ProgressElement(progress, Component.translatable("factory.progress"), new ProgressStyle(), new BoxStyle(), false);
     private int circuitNumber = 0;
     public final ContainerData data;
     public SteamBenderEntity(BlockPos pPos, BlockState pBlockState) {
@@ -184,7 +178,6 @@ public class SteamBenderEntity extends BlockEntity implements MenuProvider {
         pEntity.itemHandler.setStackInSlot(7, new ItemStack(FactoryItems.CIRCUIT.get(), pEntity.circuitNumber));
         if(hasRecipe(pEntity)) {
             pEntity.progress++;
-            pEntity.progressElement = new ProgressElement(pEntity.progress, Component.translatable("factory.progress"), new ProgressStyle(), new BoxStyle(), false);
             setChanged(level, blockPos, blockState);
             if(pEntity.progress == pEntity.maxProgress) {
                 craftItem(pEntity);

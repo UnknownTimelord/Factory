@@ -1,6 +1,7 @@
 package net.tenth.factory.block;
 
 
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -12,9 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tenth.factory.Factory;
 import net.tenth.factory.block.custom.*;
-import net.tenth.factory.fluid.FactoryFluids;
 import net.tenth.factory.item.FactoryItems;
-import net.tenth.factory.tab.FactoryTabs;
 
 import java.util.function.Supplier;
 
@@ -34,6 +33,42 @@ public class FactoryBlocks {
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }
+
+    // Ores
+    public static final RegistryObject<Block> ALUMINUM_ORE = registerBlock("aluminum_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .strength(2f),
+                    UniformInt.of(3, 7)));
+
+    public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = registerBlock("deepslate_aluminum_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.DEEPSLATE)
+                    .strength(3f),
+                    UniformInt.of(3, 7)));
+
+    public static final RegistryObject<Block> GRAVEL_ALUMINUM_ORE = registerBlock("gravel_aluminum_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.GRAVEL)
+                    .strength(0.5f),
+                    UniformInt.of(3, 7)));
+
+    public static final RegistryObject<Block> NETHERRACK_ALUMINUM_ORE = registerBlock("netherrack_aluminum_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.NETHERRACK)
+                    .strength(1f),
+                    UniformInt.of(3, 7)));
+
+    public static final RegistryObject<Block> ENDSTONE_ALUMINUM_ORE = registerBlock("endstone_aluminum_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .strength(3f),
+                    UniformInt.of(3, 7)));
 
     // Misc. Functional Blocks
 

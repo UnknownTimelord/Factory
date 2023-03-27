@@ -2,13 +2,21 @@
   "itemGroup.factory_tab": "Factory",
   "factory.press_shift_for_info": "Press SHIFT for more information",
 
+  "block.factory.aluminum_ore": "Aluminum Ore",
+  "block.factory.deepslate_aluminum_ore": "Deepslate Aluminum Ore",
+  "block.factory.gravel_aluminum_ore": "Gravel Aluminum Ore",
+  "block.factory.netherrack_aluminum_ore": "Netherrack Aluminum Ore",
+  "block.factory.endstone_aluminum_ore": "End Stone Aluminum Ore",
+  "item.factory.raw_aluminum": "Raw Aluminum",
   "item.factory.aluminum_ingot": "Aluminum Ingot",
+
   "item.factory.aluminum_plate": "Aluminum Plate",
   "item.factory.copper_plate": "Copper Plate",
   "item.factory.iron_plate": "Iron Plate",
   "item.factory.gold_plate": "Gold Plate",
   "item.factory.diamond_plate": "Diamond Plate",
   "item.factory.netherite_plate": "Netherite Plate",
+
   "item.factory.copper_pickaxe": "Copper Pickaxe",
   "item.factory.unfired_pcb": "Unfired PCB",
   "item.factory.circuit": "Circuit",

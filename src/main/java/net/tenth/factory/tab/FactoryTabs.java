@@ -1,7 +1,6 @@
 package net.tenth.factory.tab;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.tenth.factory.block.FactoryBlocks;
@@ -18,6 +17,12 @@ public class FactoryTabs {
         public void fillItemList(NonNullList<ItemStack> pItems) {
             /* Items */
             // Materials
+            pItems.add(new ItemStack(FactoryBlocks.ALUMINUM_ORE.get()));
+            pItems.add(new ItemStack(FactoryBlocks.DEEPSLATE_ALUMINUM_ORE.get()));
+            pItems.add(new ItemStack(FactoryBlocks.GRAVEL_ALUMINUM_ORE.get()));
+            pItems.add(new ItemStack(FactoryBlocks.NETHERRACK_ALUMINUM_ORE.get()));
+            pItems.add(new ItemStack(FactoryBlocks.ENDSTONE_ALUMINUM_ORE.get()));
+            pItems.add(new ItemStack(FactoryItems.RAW_ALUMINUM.get()));
             pItems.add(new ItemStack(FactoryItems.ALUMINUM_INGOT.get()));
             // Plates
             pItems.add(new ItemStack(FactoryItems.ALUMINUM_PLATE.get()));

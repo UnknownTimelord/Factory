@@ -32,6 +32,8 @@ import net.tenth.factory.screen.SteamBenderScreen;
 import net.tenth.factory.screen.SteamBoilerScreen;
 import net.tenth.factory.sound.FactorySounds;
 import net.tenth.factory.tab.FactoryTabs;
+import net.tenth.factory.world.feature.FactoryConfiguredFeatures;
+import net.tenth.factory.world.feature.FactoryPlacedFeatures;
 import org.slf4j.Logger;
 @Mod(Factory.MOD_ID)
 public class Factory
@@ -51,6 +53,8 @@ public class Factory
         FactoryFluids.register(modEventBus);
         FactoryMenuTypes.register(modEventBus);
         FactorySounds.register(modEventBus);
+        FactoryConfiguredFeatures.register(modEventBus);
+        FactoryPlacedFeatures.register(modEventBus);
         FactoryTabs.FACTORY_TAB.canScroll(); // Random call to initialize my tab.
 
         modEventBus.addListener(this::commonSetup);
